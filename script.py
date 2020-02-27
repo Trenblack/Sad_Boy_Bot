@@ -2,7 +2,7 @@ import moviepy.editor as mpe
 import moviepy.video as mpv
 from random import randint
 from math import floor
-from words import word_list
+from assets.words import word_list
 
 
 
@@ -12,7 +12,7 @@ class Generator:
         self.clip_list = []
         self.clip = mpe.VideoFileClip(filename)
         self.audio = mpe.AudioFileClip(audioname)
-        self.overlay = mpe.VideoFileClip('overlay.mov').subclip().resize(self.clip.size).set_opacity(0.40)
+        self.overlay = mpe.VideoFileClip('assets/overlay.mov').subclip().resize(self.clip.size).set_opacity(0.40)
 
     def audi_test(self):
         f = self.clip.set_audio(self.audio)
@@ -22,7 +22,7 @@ class Generator:
         while self.total_duration < desired_length:
             self.add_clip()
         final = mpe.concatenate_videoclips(self.clip_list)
-        image = mpe.ImageClip('blue.png').resize(self.clip.size).set_opacity(0.35).set_duration(self.total_duration)
+        image = mpe.ImageClip('assets/blue.png').resize(self.clip.size).set_opacity(0.35).set_duration(self.total_duration)
         final = mpe.CompositeVideoClip([final, image])
         self.audio = self.audio.set_duration(self.total_duration)
         final = final.set_audio(self.audio)
